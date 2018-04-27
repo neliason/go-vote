@@ -19,7 +19,8 @@ export function PollDetailPage(props) {
       <div className={`${styles['single-poll']} ${styles['poll-detail']}`}>
         <h3 className={styles['poll-title']}>{props.poll.title}</h3>
         <p className={styles['author-name']}>by {props.poll.name}</p>
-        <p className={styles['poll-desc']}>{props.poll.content}</p>
+        <p className={styles['poll-option']}>{props.poll.choices[0]}</p>
+        <p className={styles['poll-option']}>{props.poll.choices[1]}</p>
       </div>
     </div>
   );
@@ -41,7 +42,7 @@ PollDetailPage.propTypes = {
   poll: PropTypes.shape({
     name: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
+    choices: PropTypes.arrayOf(PropTypes.string).isRequired,
     slug: PropTypes.string.isRequired,
     cuid: PropTypes.string.isRequired,
   }).isRequired,

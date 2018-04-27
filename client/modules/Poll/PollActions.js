@@ -19,7 +19,7 @@ export function addPollRequest(poll) {
       poll: {
         name: poll.name,
         title: poll.title,
-        content: poll.content,
+        choices: poll.choices,
       },
     }).then(res => dispatch(addPoll(res.poll)));
   };

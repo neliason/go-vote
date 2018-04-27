@@ -19,7 +19,7 @@ class PollListPage extends Component {
     polls: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
-      content: PropTypes.string.isRequired,
+      choices: PropTypes.arrayOf(PropTypes.string).isRequired,
     })).isRequired,
     showAddPoll: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired,
@@ -35,9 +35,9 @@ class PollListPage extends Component {
     }
   };
 
-  handleAddPoll = (name, title, content) => {
+  handleAddPoll = (name, title, choices) => {
     this.props.dispatch(toggleAddPoll());
-    this.props.dispatch(addPollRequest({ name, title, content }));
+    this.props.dispatch(addPollRequest({ name, title, choices }));
   };
 
   render() {

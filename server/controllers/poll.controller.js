@@ -27,7 +27,7 @@ export function getPolls(req, res) {
 export function addPoll(req, res) {
   console.log('right here');
   console.log(req.body);
-  if (!req.body.poll.name || !req.body.poll.title || !req.body.poll.content) {
+  if (!req.body.poll.name || !req.body.poll.title || !req.body.poll.choices) {
     res.status(403).end();
   }
 
@@ -36,8 +36,7 @@ export function addPoll(req, res) {
   // Let's sanitize inputs
   newPoll.title = sanitizeHtml(newPoll.title);
   newPoll.name = sanitizeHtml(newPoll.name);
-  newPoll.content = sanitizeHtml(newPoll.content);
-
+  newPoll.choices = sanitizeHtml(newPoll.choices);
   newPoll.slug = slug(newPoll.title.toLowerCase(), { lowercase: true });
   newPoll.cuid = cuid();
   newPoll.save((err, saved) => {

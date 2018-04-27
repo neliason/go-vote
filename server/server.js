@@ -10,6 +10,8 @@ import config from '../webpack.config.dev';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
+require('dotenv').load();
+
 // Initialize the Express App
 const app = new Express();
 
@@ -37,13 +39,12 @@ import routes from '../client/routes';
 import { fetchComponentData } from './util/fetchData';
 import polls from './routes/poll.routes';
 import dummyData from './dummyData';
-import serverConfig from './config';
 
 // Set native promises as mongoose promise
 mongoose.Promise = global.Promise;
 
 // MongoDB Connection
-mongoose.connect(serverConfig.mongoURL, (error) => {
+mongoose.connect(process.env.MONGO_URI, (error) => {
   if (error) {
     console.error('Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
     throw error;
@@ -81,6 +82,7 @@ const renderFullPage = (html, initialState) => {
         ${isProdMode ? `<link rel='stylesheet' href='${assetsManifest['/app.css']}' />` : ''}
         <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'/>
         <link rel="shortcut icon" href="http://res.cloudinary.com/hashnode/image/upload/v1455629445/static_imgs/mern/mern-favicon-circle-fill.png" type="image/png" />
+        <link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
       </head>
       <body>
         <div id="root">${html}</div>
@@ -141,9 +143,9 @@ app.use((req, res, next) => {
 });
 
 // start app
-app.listen(serverConfig.port, (error) => {
+app.listen(process.env.PORT, (error) => {
   if (!error) {
-    console.log(`go-vote is running on port: ${serverConfig.port}`); // eslint-disable-line
+    console.log(`go-vote is running on port: ${process.env.PORT}`); // eslint-disable-line
   }
 });
 
