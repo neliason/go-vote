@@ -28,7 +28,10 @@ const PollReducer = (state = initialState, action) => {
 /* Selectors */
 
 // Get all polls
-export const getPolls = state => state.polls.data;
+export const getPolls = state => {
+  console.log('in getPolls');
+  return state.polls.data;
+};
 
 // Get poll by cuid
 export const getPoll = (state, cuid) => state.polls.data.filter(poll => poll.cuid === cuid)[0];

@@ -13,8 +13,9 @@ const PollListItem = props =>
       </Link>
     </h3>
     <p className={styles['author-name']}>by {props.poll.name}</p>
-    <p className={styles['poll-option']}>{props.poll.choices[0]}</p>
-    <p className={styles['poll-option']}>{props.poll.choices[1]}</p>
+    {props.poll.choices.map((choice, index) =>
+      <p className={styles['poll-option']} key={index}>{choice.name}: {choice.votes}</p>
+    )}
     <p className={styles['poll-action']}><a href="#" onClick={props.onDelete}>Delete Poll</a></p>
     <hr className={styles.divider} />
   </div>;
@@ -24,7 +25,10 @@ PollListItem.propTypes = {
   poll: PropTypes.shape({
     name: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    choices: PropTypes.arrayOf(PropTypes.string).isRequired,
+    choices: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      votes: PropTypes.number.isRequired,
+    })).isRequired,
     slug: PropTypes.string.isRequired,
     cuid: PropTypes.string.isRequired,
   }).isRequired,

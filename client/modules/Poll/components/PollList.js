@@ -21,9 +21,13 @@ PollList.propTypes = {
   polls: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    choices: PropTypes.arrayOf(PropTypes.string).isRequired,
+    choices: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      votes: PropTypes.number.isRequired,
+    })).isRequired,
     slug: PropTypes.string.isRequired,
     cuid: PropTypes.string.isRequired,
+    dateAdded: PropTypes.string.isRequired,
   })).isRequired,
   handleDeletePoll: PropTypes.func.isRequired,
 };

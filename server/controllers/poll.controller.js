@@ -25,18 +25,17 @@ export function getPolls(req, res) {
  * @returns void
  */
 export function addPoll(req, res) {
-  console.log('right here');
-  console.log(req.body);
   if (!req.body.poll.name || !req.body.poll.title || !req.body.poll.choices) {
     res.status(403).end();
   }
-
   const newPoll = new Poll(req.body.poll);
 
   // Let's sanitize inputs
   newPoll.title = sanitizeHtml(newPoll.title);
   newPoll.name = sanitizeHtml(newPoll.name);
-  newPoll.choices = sanitizeHtml(newPoll.choices);
+  newPoll.choices = newPoll.choices.map(choice => {
+    return { name: sanitizeHtml(choice), votes: 0 };
+  });
   newPoll.slug = slug(newPoll.title.toLowerCase(), { lowercase: true });
   newPoll.cuid = cuid();
   newPoll.save((err, saved) => {

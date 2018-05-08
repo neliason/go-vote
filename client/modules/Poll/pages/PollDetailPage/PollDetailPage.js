@@ -12,6 +12,7 @@ import { fetchPoll } from '../../PollActions';
 // Import Selectors
 import { getPoll } from '../../PollReducer';
 
+// TODO: display graph and allow voting
 export function PollDetailPage(props) {
   return (
     <div>
@@ -19,8 +20,9 @@ export function PollDetailPage(props) {
       <div className={`${styles['single-poll']} ${styles['poll-detail']}`}>
         <h3 className={styles['poll-title']}>{props.poll.title}</h3>
         <p className={styles['author-name']}>by {props.poll.name}</p>
-        <p className={styles['poll-option']}>{props.poll.choices[0]}</p>
-        <p className={styles['poll-option']}>{props.poll.choices[1]}</p>
+        {props.poll.choices.map((choice, index) =>
+          <p className={styles['poll-option']} key={index}><a href='#' onClick={props.onVote}>{choice.name}: {choice.votes}</a></p>
+        )}
       </div>
     </div>
   );
@@ -42,7 +44,10 @@ PollDetailPage.propTypes = {
   poll: PropTypes.shape({
     name: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    choices: PropTypes.arrayOf(PropTypes.string).isRequired,
+    choices: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      votes: PropTypes.number.isRequired,
+    })).isRequired,
     slug: PropTypes.string.isRequired,
     cuid: PropTypes.string.isRequired,
   }).isRequired,
