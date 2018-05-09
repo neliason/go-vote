@@ -1,31 +1,53 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+import { Button } from 'react-bootstrap';
 
 // Import Style
 import styles from '../../components/PollListItem/PollListItem.css';
 
 // Import Actions
-import { fetchPoll } from '../../PollActions';
+import { fetchPoll, voteOnPollRequest } from '../../PollActions';
 
 // Import Selectors
 import { getPoll } from '../../PollReducer';
 
 // TODO: display graph and allow voting
-export function PollDetailPage(props) {
-  return (
-    <div>
-      <Helmet title={props.poll.title} />
-      <div className={`${styles['single-poll']} ${styles['poll-detail']}`}>
-        <h3 className={styles['poll-title']}>{props.poll.title}</h3>
-        <p className={styles['author-name']}>by {props.poll.name}</p>
-        {props.poll.choices.map((choice, index) =>
-          <p className={styles['poll-option']} key={index}><a href='#' onClick={props.onVote}>{choice.name}: {choice.votes}</a></p>
-        )}
+class PollDetailPage extends Component {
+
+  static propTypes = {
+    poll: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      choices: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        votes: PropTypes.number.isRequired,
+      })).isRequired,
+      slug: PropTypes.string.isRequired,
+      cuid: PropTypes.string.isRequired,
+    }).isRequired,
+    dispatch: PropTypes.func.isRequired,
+  }
+
+  handleVote = (cuid, indexOfChoice) => {
+    this.props.dispatch(voteOnPollRequest(cuid, indexOfChoice));
+  }
+
+  render() {
+    return (
+      <div>
+        <Helmet title={this.props.poll.title} />
+        <div className={`${styles['single-poll']} ${styles['poll-detail']}`}>
+          <h3 className={styles['poll-title']}>{this.props.poll.title}</h3>
+          <p className={styles['author-name']}>by {this.props.poll.name}</p>
+          {this.props.poll.choices.map((choice, index) =>
+            <p className={styles['poll-option']} key={index}><Button onClick={() => this.handleVote(this.props.poll.cuid, index)}>{choice.name}: {choice.votes}</Button></p>
+          )}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 // Actions required to provide data for this component to render in server side.
@@ -39,18 +61,5 @@ function mapStateToProps(state, props) {
     poll: getPoll(state, props.params.cuid),
   };
 }
-
-PollDetailPage.propTypes = {
-  poll: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    choices: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      votes: PropTypes.number.isRequired,
-    })).isRequired,
-    slug: PropTypes.string.isRequired,
-    cuid: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 export default connect(mapStateToProps)(PollDetailPage);

@@ -4,6 +4,7 @@ import callApi from '../../util/apiCaller';
 export const ADD_POLL = 'ADD_POLL';
 export const ADD_POLLS = 'ADD_POLLS';
 export const DELETE_POLL = 'DELETE_POLL';
+export const VOTE_ON_POLL = 'VOTE_ON_POLL';
 
 // Export Actions
 export function addPoll(poll) {
@@ -56,5 +57,21 @@ export function deletePoll(cuid) {
 export function deletePollRequest(cuid) {
   return (dispatch) => {
     return callApi(`polls/${cuid}`, 'delete').then(() => dispatch(deletePoll(cuid)));
+  };
+}
+
+export function voteOnPoll(cuid, indexOfChoice) {
+  return {
+    type: VOTE_ON_POLL,
+    cuid,
+    indexOfChoice,
+  };
+}
+
+export function voteOnPollRequest(cuid, indexOfChoice) {
+  return (dispatch) => {
+    return callApi(`polls/${cuid}/vote`, 'post', {
+      indexOfChoice,
+    }).then(() => dispatch(voteOnPoll(cuid, indexOfChoice)));
   };
 }

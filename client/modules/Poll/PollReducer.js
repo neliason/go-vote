@@ -1,4 +1,4 @@
-import { ADD_POLL, ADD_POLLS, DELETE_POLL } from './PollActions';
+import { ADD_POLL, ADD_POLLS, DELETE_POLL, VOTE_ON_POLL } from './PollActions';
 
 // Initial State
 const initialState = { data: [] };
@@ -20,6 +20,24 @@ const PollReducer = (state = initialState, action) => {
         data: state.data.filter(poll => poll.cuid !== action.cuid),
       };
 
+    case VOTE_ON_POLL : {
+      const newData = state.data.map((poll) => {
+        if (poll.cuid === action.cuid) {
+          const newChoices = poll.choices;
+          newChoices[action.indexOfChoice].votes += 1;
+          console.log('newChoices', newChoices);
+          return {
+            ...poll,
+            choices: newChoices,
+          };
+        }
+        return poll;
+      });
+      return {
+        data: newData,
+      };
+    }
+
     default:
       return state;
   }
@@ -29,7 +47,7 @@ const PollReducer = (state = initialState, action) => {
 
 // Get all polls
 export const getPolls = state => {
-  console.log('in getPolls');
+  console.log('here');
   return state.polls.data;
 };
 

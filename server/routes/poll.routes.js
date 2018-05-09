@@ -14,4 +14,6 @@ router.route('/polls').post(PollController.addPoll);
 // Delete a poll by cuid
 router.route('/polls/:cuid').delete(PollController.deletePoll);
 
+router.route('/polls/:cuid/vote').post(PollController.voteOnPoll);
+
 export default router;

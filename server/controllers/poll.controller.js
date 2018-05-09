@@ -78,3 +78,20 @@ export function deletePoll(req, res) {
     });
   });
 }
+
+export function voteOnPoll(req, res) {
+  console.log('voteOnPoll req.params:', req.params);
+  console.log('voteOnPoll req.body:', req.body);
+  Poll.findOne({ cuid: req.params.cuid }).exec((findErr, poll) => {
+    if (findErr) {
+      res.status(500).send(findErr);
+    }
+    poll.choices[req.body.indexOfChoice].votes += 1;
+    poll.save((saveErr, updatedPoll) => {
+      if (saveErr) {
+        res.status(500).send(saveErr);
+      }
+      res.json(updatedPoll);
+    });
+  });
+}
