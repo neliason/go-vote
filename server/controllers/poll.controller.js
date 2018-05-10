@@ -28,19 +28,26 @@ export function addPoll(req, res) {
   if (!req.body.poll.name || !req.body.poll.title || !req.body.poll.choices) {
     res.status(403).end();
   }
-  const newPoll = new Poll(req.body.poll);
-
-  // Let's sanitize inputs
-  newPoll.title = sanitizeHtml(newPoll.title);
-  newPoll.name = sanitizeHtml(newPoll.name);
-  newPoll.choices = newPoll.choices.map(choice => {
+  const pollTitle = sanitizeHtml(req.body.poll.title);
+  const pollName = sanitizeHtml(req.body.poll.name);
+  const pollChoices = req.body.poll.choices.map(choice => {
     return { name: sanitizeHtml(choice), votes: 0 };
   });
-  newPoll.slug = slug(newPoll.title.toLowerCase(), { lowercase: true });
-  newPoll.cuid = cuid();
+  const pollSlug = slug(pollTitle.toLowerCase(), { lowercase: true });
+  const pollCuid = cuid();
+  const poll = {
+    title: pollTitle,
+    name: pollName,
+    choices: pollChoices,
+    slug: pollSlug,
+    cuid: pollCuid,
+  };
+  const newPoll = new Poll(poll);
+
   newPoll.save((err, saved) => {
     if (err) {
       res.status(500).send(err);
+      return;
     }
     res.json({ poll: saved });
   });
@@ -80,8 +87,6 @@ export function deletePoll(req, res) {
 }
 
 export function voteOnPoll(req, res) {
-  console.log('voteOnPoll req.params:', req.params);
-  console.log('voteOnPoll req.body:', req.body);
   Poll.findOne({ cuid: req.params.cuid }).exec((findErr, poll) => {
     if (findErr) {
       res.status(500).send(findErr);
