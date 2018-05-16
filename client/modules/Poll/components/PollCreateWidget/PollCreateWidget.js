@@ -8,7 +8,6 @@ import styles from './PollCreateWidget.css';
 export class PollCreateWidget extends Component {
 
   state = {
-    numOptions: 2,
     options: [
       {
         text: '',
@@ -48,13 +47,39 @@ export class PollCreateWidget extends Component {
     });
   }
 
+  deleteChoice = (indexToDelete) => {
+    if (this.state.options.length > 2) {
+      const newOptions = this.state.options
+        .filter((choice, index) => index !== indexToDelete)
+        .map((choice, index) => {
+          if (index === 0) {
+            return {
+              ...choice,
+              placeholder: 'Blue',
+            };
+          } else if (index === 1) {
+            return {
+              ...choice,
+              placeholder: 'Red',
+            };
+          }
+          return {
+            ...choice,
+            placeholder: `choice ${index + 1}`,
+          };
+        });
+      this.setState({
+        options: newOptions,
+      });
+    }
+  }
+
   addPoll = () => {
     const nameRef = this.refs.name;
     const titleRef = this.refs.title;
     const choices = this.state.options.map((option) => {
       return option.text;
     });
-    console.log('choices:', choices);
     if (nameRef.value && titleRef.value && choices.length >= 2) {
       this.props.addPoll(nameRef.value, titleRef.value, choices);
       nameRef.value = titleRef.value = '';
@@ -80,13 +105,23 @@ export class PollCreateWidget extends Component {
           <input placeholder="What is your favorite color?" className={styles['form-field']} ref="title" />
           Choices
           {this.state.options.map((option, index) =>
-            <input
-              placeholder={option.placeholder}
-              className={styles['form-field']}
-              onChange={(event) => this.onOptionChange(event, index)}
-              value={this.state.options[index].text}
-              key={index}
-            />
+            <div className={styles['choice-flexbox']}>
+              <input
+                placeholder={option.placeholder}
+                className={styles['choice-form-field']}
+                onChange={(event) => this.onOptionChange(event, index)}
+                value={this.state.options[index].text}
+                key={index}
+              />
+              <Button
+                className={styles['delete-button']}
+                bsStyle="danger"
+                href="#"
+                onClick={() => this.deleteChoice(index)}
+              >
+                Delete
+              </Button>
+            </div>
           )}
           <ButtonToolbar>
             <Button bsStyle="primary" href="#" onClick={this.addPoll}>Submit</Button>
