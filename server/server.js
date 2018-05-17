@@ -3,6 +3,9 @@ import compression from 'compression';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import path from 'path';
+import passport from 'passport';
+import session from 'express-session';
+
 
 // Webpack Requirements
 import webpack from 'webpack';
@@ -11,6 +14,7 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
 require('dotenv').load();
+require('./util/passport')(passport);
 
 // Initialize the Express App
 const app = new Express();
@@ -35,10 +39,11 @@ import { match, RouterContext } from 'react-router';
 import Helmet from 'react-helmet';
 
 // Import required modules
-import routes from '../client/routes';
+import clientRoutes from '../client/routes';
 import { fetchComponentData } from './util/fetchData';
 import polls from './routes/poll.routes';
 import dummyData from './dummyData';
+import userRoutes from './routes/user.routes';
 
 // Set native promises as mongoose promise
 mongoose.Promise = global.Promise;
@@ -53,6 +58,15 @@ mongoose.connect(process.env.MONGO_URI, (error) => {
   // feed some dummy data in DB.
   dummyData();
 });
+
+app.use(session({
+  secret: 'secretClementine',
+  resave: false,
+  saveUninitialized: true,
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+userRoutes(app, passport);
 
 // Apply body Parser and server public assets and routes
 app.use(compression());
@@ -109,7 +123,7 @@ const renderError = err => {
 
 // Server Side Rendering based on routes matched by React-router.
 app.use((req, res, next) => {
-  match({ routes, location: req.url }, (err, redirectLocation, renderProps) => {
+  match({ clientRoutes, location: req.url }, (err, redirectLocation, renderProps) => {
     if (err) {
       return res.status(500).end(renderError(err));
     }
