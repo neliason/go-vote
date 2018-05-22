@@ -8,7 +8,6 @@ const LoginPage = () => {
         <p className="vote-text">Go Vote</p>
         <a href="/auth/github">
           <div className="btn" id="login-btn">
-            <img src="./img/github_32px.png" alt="github logo" />
             <p>LOGIN WITH GITHUB</p>
           </div>
         </a>

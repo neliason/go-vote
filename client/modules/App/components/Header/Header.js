@@ -10,12 +10,14 @@ export function Header(props, context) {
     <div className={styles.header}>
       <div className={styles.navbar}>
         <ul>
-          <li>Login</li>
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
         </ul>
       </div>
       <div className={styles.content}>
         <h1 className={styles['site-title']}>
-          <Link to="/" >Go-Vote</Link>
+          <Link to="/">Go-Vote</Link>
         </h1>
         {
           context.router.isActive('/', true)
