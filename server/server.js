@@ -3,6 +3,9 @@ import compression from 'compression';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import path from 'path';
+import passport from 'passport';
+import session from 'express-session';
+
 
 // Webpack Requirements
 import webpack from 'webpack';
@@ -11,6 +14,7 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
 require('dotenv').load();
+require('./util/passport')(passport);
 
 // Initialize the Express App
 const app = new Express();
@@ -39,6 +43,7 @@ import routes from '../client/routes';
 import { fetchComponentData } from './util/fetchData';
 import polls from './routes/poll.routes';
 import dummyData from './dummyData';
+const userRoutes = require('./routes/user.routes');
 
 // Set native promises as mongoose promise
 mongoose.Promise = global.Promise;
@@ -53,6 +58,14 @@ mongoose.connect(process.env.MONGO_URI, (error) => {
   // feed some dummy data in DB.
   dummyData();
 });
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Apply body Parser and server public assets and routes
 app.use(compression());
@@ -141,6 +154,8 @@ app.use((req, res, next) => {
       .catch((error) => next(error));
   });
 });
+
+userRoutes(app, passport);
 
 // start app
 app.listen(process.env.PORT, (error) => {
