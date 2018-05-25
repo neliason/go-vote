@@ -15,7 +15,7 @@ class ProfilePage extends Component {
       id: PropTypes.string.isRequired,
       username: PropTypes.string.isRequired,
       displayName: PropTypes.string.isRequired,
-      repositories: PropTypes.number.isRequired,
+      publicRepos: PropTypes.number.isRequired,
     }).isRequired,
     dispatch: PropTypes.func.isRequired,
   }
@@ -31,7 +31,7 @@ class ProfilePage extends Component {
           <p><span>ID: </span><span id="profile-id" className="profile-value">{this.props.user.id}</span></p>
           <p><span>Username: </span><span id="profile-username" className="profile-value">{this.props.user.username}</span></p>
           <p><span>Display Name: </span><span id="display-name" className="profile-value">{this.props.user.displayName}</span></p>
-          <p><span>Repositories: </span><span id="profile-repos" className="profile-value">{this.props.user.repositories}</span></p>
+          <p><span>Repositories: </span><span id="profile-repos" className="profile-value">{this.props.user.publicRepos}</span></p>
           <a className="menu" href="/">Home</a>
           <p id="menu-divide">|</p>
           <a className="menu" href="/logout">Logout</a>
