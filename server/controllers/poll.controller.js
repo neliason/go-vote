@@ -37,7 +37,7 @@ export function addPoll(req, res) {
   const pollCuid = cuid();
   const poll = {
     title: pollTitle,
-    name: pollName,
+    name: req.user.github.username,
     choices: pollChoices,
     slug: pollSlug,
     cuid: pollCuid,
@@ -98,5 +98,20 @@ export function voteOnPoll(req, res) {
       }
       res.json(updatedPoll);
     });
+  });
+}
+
+/**
+ * Get all user's polls
+ * @param req
+ * @param res
+ * @returns void
+ */
+export function getMyPolls(req, res) {
+  Poll.find({ name: req.user.github.username }).exec((err, mypolls) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+    res.json({ mypolls });
   });
 }

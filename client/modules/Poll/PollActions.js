@@ -33,6 +33,12 @@ export function addPolls(polls) {
   };
 }
 
+export function fetchMyPolls() {
+  return (dispatch) => {
+    return callApi('mypolls').then(res => dispatch(addPolls(res.mypolls)));
+  };
+}
+
 export function fetchPolls() {
   return (dispatch) => {
     return callApi('polls').then(res => {

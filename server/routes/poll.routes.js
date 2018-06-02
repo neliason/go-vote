@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import * as PollController from '../controllers/poll.controller';
+import { isLoggedIn } from '../util/common';
 const router = new Router();
 
 // Get all Polls
@@ -15,5 +16,7 @@ router.route('/polls').post(PollController.addPoll);
 router.route('/polls/:cuid').delete(PollController.deletePoll);
 
 router.route('/polls/:cuid/vote').post(PollController.voteOnPoll);
+
+router.route('/mypolls').get(isLoggedIn, PollController.getMyPolls);
 
 export default router;

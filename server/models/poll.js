@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const pollSchema = new Schema({
-  name: { type: 'String', required: true },
+  name: { type: 'String', required: true, ref: 'User' },
   title: { type: 'String', required: true },
   choices: [{
     name: { type: 'String', required: true },
