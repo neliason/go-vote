@@ -12,12 +12,14 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 
 // Import Actions
-import { toggleAddPoll } from './AppActions';
+import { toggleAddPoll, checkUserAuthStatus } from './AppActions';
+import { getUserAuthenticated } from './AppReducer';
 
 export class App extends Component {
 
   static propTypes = {
     children: PropTypes.object.isRequired,
+    userAuthenticated: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired,
   };
 
@@ -27,6 +29,7 @@ export class App extends Component {
   }
 
   componentDidMount() {
+    this.props.dispatch(checkUserAuthStatus());
     this.setState({isMounted: true}); // eslint-disable-line
   }
 
@@ -56,6 +59,7 @@ export class App extends Component {
           />
           <Header
             toggleAddPoll={this.toggleAddPollSection}
+            userAuthenticated={this.props.userAuthenticated}
           />
           <div className={styles.container}>
             {this.props.children}
@@ -68,9 +72,9 @@ export class App extends Component {
 }
 
 // Retrieve data from store as props
-function mapStateToProps(store) {
+function mapStateToProps(state) {
   return {
-
+    userAuthenticated: getUserAuthenticated(state),
   };
 }
 

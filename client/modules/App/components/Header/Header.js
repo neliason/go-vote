@@ -10,8 +10,15 @@ export function Header(props, context) {
     <div className={styles.header}>
       <div className={styles.navbar}>
         <ul>
+         {
+           // TODO: Add link to profile page and 'my polls' page, only display if user logged in
+         }
           <li>
-            <Link to="/login">Login</Link>
+            {props.userAuthenticated ?
+              <a href="/logout">Logout</a>
+            :
+              <Link to="/login">Login</Link>
+            }
           </li>
         </ul>
       </div>
@@ -35,6 +42,7 @@ Header.contextTypes = {
 
 Header.propTypes = {
   toggleAddPoll: PropTypes.func.isRequired,
+  userAuthenticated: PropTypes.bool.isRequired,
 };
 
 export default Header;

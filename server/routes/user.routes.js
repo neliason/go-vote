@@ -9,8 +9,12 @@ module.exports = function (app, passport) {
     });
 
   app.route('/api/user')
-    .get(isLoggedIn, (req, res) => {
-      res.json(req.user.github);
+    .get((req, res) => {
+      if (req.user) {
+        res.json(req.user.github);
+      } else {
+        res.json({});
+      }
     });
 
   app.route('/auth/github')
