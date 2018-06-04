@@ -31,7 +31,6 @@ export function userLogout() {
 export function checkUserAuthStatus() {
   return (dispatch) => {
     return callApi('user').then(res => {
-      console.log('res', res)
       if (jsonEmpty(res)) {
         dispatch(userLogout());
       } else {

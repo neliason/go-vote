@@ -10,9 +10,18 @@ export function Header(props, context) {
     <div className={styles.header}>
       <div className={styles.navbar}>
         <ul>
-         {
-           // TODO: Add link to profile page and 'my polls' page, only display if user logged in
-         }
+          {props.userAuthenticated ?
+            <span>
+              <li>
+                <Link to="/mypolls">My Polls</Link>
+              </li>
+              <li>
+                <a href="/profile">Profile</a>
+              </li>
+            </span>
+          :
+            null
+          }
           <li>
             {props.userAuthenticated ?
               <a href="/logout">Logout</a>

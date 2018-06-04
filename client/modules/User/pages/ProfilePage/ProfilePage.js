@@ -32,9 +32,6 @@ class ProfilePage extends Component {
           <p><span>Username: </span><span id="profile-username" className="profile-value">{this.props.user.username}</span></p>
           <p><span>Display Name: </span><span id="display-name" className="profile-value">{this.props.user.displayName}</span></p>
           <p><span>Repositories: </span><span id="profile-repos" className="profile-value">{this.props.user.publicRepos}</span></p>
-          <a className="menu" href="/">Home</a>
-          <p id="menu-divide">|</p>
-          <a className="menu" href="/logout">Logout</a>
         </div>
       </div>
     );
