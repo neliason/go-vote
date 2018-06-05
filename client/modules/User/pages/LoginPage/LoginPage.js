@@ -3,7 +3,7 @@ import '../../user.css';
 
 const LoginPage = () => {
   return (
-    <div className="container">	
+    <div className="container">
       <div className="login">
         <p className="vote-text">Go Vote</p>
         <a href="/auth/github">

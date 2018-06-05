@@ -12,6 +12,8 @@ const PollList = props =>
           poll={poll}
           key={poll.cuid}
           onDelete={() => props.handleDeletePoll(poll.cuid)}
+          userAuthenticated={props.userAuthenticated}
+          user={props.user}
         />
       ))
     }
@@ -30,6 +32,13 @@ PollList.propTypes = {
     dateAdded: PropTypes.string.isRequired,
   })).isRequired,
   handleDeletePoll: PropTypes.func.isRequired,
+  userAuthenticated: PropTypes.bool.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+    displayName: PropTypes.string.isRequired,
+    publicRepos: PropTypes.number.isRequired,
+  }),
 };
 
 export default PollList;

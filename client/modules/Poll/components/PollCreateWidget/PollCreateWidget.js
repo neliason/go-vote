@@ -12,12 +12,15 @@ export class PollCreateWidget extends Component {
       {
         text: '',
         placeholder: 'Blue',
+        id: 1,
       },
       {
         text: '',
         placeholder: 'Red',
+        id: 2,
       },
     ],
+    nextId: 3,
   };
 
   onOptionChange = (event, index) => {
@@ -40,10 +43,12 @@ export class PollCreateWidget extends Component {
       {
         text: '',
         placeholder: `choice ${this.state.options.length + 1}`,
+        id: this.state.nextId,
       },
     ];
     this.setState({
       options: newOptions,
+      nextId: ++this.state.nextId,
     });
   }
 
@@ -75,14 +80,13 @@ export class PollCreateWidget extends Component {
   }
 
   addPoll = () => {
-    const nameRef = this.refs.name;
     const titleRef = this.refs.title;
     const choices = this.state.options.map((option) => {
       return option.text;
     });
-    if (nameRef.value && titleRef.value && choices.length >= 2) {
-      this.props.addPoll(nameRef.value, titleRef.value, choices);
-      nameRef.value = titleRef.value = '';
+    if (titleRef.value && choices.length >= 2) {
+      this.props.addPoll(this.props.user.username, titleRef.value, choices);
+      titleRef.value = '';
       const newOptions = this.state.options
         .filter((option, index) => index < 2)
         .map((option) => {
@@ -101,17 +105,15 @@ export class PollCreateWidget extends Component {
       <div className={cls}>
         <div className={styles['form-content']}>
           <h2 className={styles['form-title']}>Create Poll</h2>
-          <input placeholder="Author's Name" className={styles['form-field']} ref="name" />
           <input placeholder="What is your favorite color?" className={styles['form-field']} ref="title" />
           Choices
           {this.state.options.map((option, index) =>
-            <div className={styles['choice-flexbox']}>
+            <div className={styles['choice-flexbox']} key={option.id}>
               <input
                 placeholder={option.placeholder}
                 className={styles['choice-form-field']}
                 onChange={(event) => this.onOptionChange(event, index)}
                 value={this.state.options[index].text}
-                key={index}
               />
               <Button
                 className={styles['delete-button']}
@@ -136,6 +138,12 @@ export class PollCreateWidget extends Component {
 PollCreateWidget.propTypes = {
   addPoll: PropTypes.func.isRequired,
   showAddPoll: PropTypes.bool.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+    displayName: PropTypes.string.isRequired,
+    publicRepos: PropTypes.number.isRequired,
+  }),
 };
 
 export default PollCreateWidget;

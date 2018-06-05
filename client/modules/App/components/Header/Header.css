@@ -18,7 +18,7 @@
   float: left;
 }
 
-.site-title a Link {
+.site-title > a {
   text-decoration: none;
   color: #FFF;
 }
@@ -49,7 +49,10 @@
   margin: 10px;
   padding: 5px;
   cursor: pointer;
-  color: #fff;
+}
+
+.navbar a {
+  color: #FFF;
 }
 
 .navbar li:first-child {

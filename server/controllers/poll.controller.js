@@ -37,7 +37,7 @@ export function addPoll(req, res) {
   const pollCuid = cuid();
   const poll = {
     title: pollTitle,
-    name: req.user.github.username,
+    name: pollName,
     choices: pollChoices,
     slug: pollSlug,
     cuid: pollCuid,

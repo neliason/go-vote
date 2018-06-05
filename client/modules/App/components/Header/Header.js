@@ -13,7 +13,7 @@ export function Header(props, context) {
           {props.userAuthenticated ?
             <span>
               <li>
-                <Link to="/mypolls">My Polls</Link>
+                <a href="/mypolls">My Polls</a>
               </li>
               <li>
                 <a href="/profile">Profile</a>
@@ -36,7 +36,7 @@ export function Header(props, context) {
           <Link to="/">Go-Vote</Link>
         </h1>
         {
-          context.router.isActive('/', true)
+          context.router.isActive('/', true) && props.userAuthenticated
             ? <a className={styles['add-poll-button']} href="#" onClick={props.toggleAddPoll}>Add Poll</a>
             : null
         }

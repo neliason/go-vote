@@ -11,16 +11,19 @@ const AppReducer = (state = initialState, action) => {
   switch (action.type) {
     case TOGGLE_ADD_POLL:
       return {
+        ...state,
         showAddPoll: !state.showAddPoll,
       };
 
     case USER_LOGIN:
       return {
+        ...state,
         userAuthenticated: true,
       };
 
     case USER_LOGOUT:
       return {
+        ...state,
         userAuthenticated: false,
       };
 

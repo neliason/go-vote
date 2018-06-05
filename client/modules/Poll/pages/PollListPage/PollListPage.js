@@ -9,10 +9,12 @@ import PollCreateWidget from '../../components/PollCreateWidget/PollCreateWidget
 // Import Actions
 import { addPollRequest, fetchPolls, deletePollRequest } from '../../PollActions';
 import { toggleAddPoll } from '../../../App/AppActions';
+import { fetchUser } from '../../../User/UserActions';
 
 // Import Selectors
-import { getShowAddPoll } from '../../../App/AppReducer';
+import { getShowAddPoll, getUserAuthenticated } from '../../../App/AppReducer';
 import { getPolls } from '../../PollReducer';
+import { getUser } from '../../../User/UserReducer';
 
 class PollListPage extends Component {
   static propTypes = {
@@ -28,11 +30,19 @@ class PollListPage extends Component {
       dateAdded: PropTypes.string.isRequired,
     })).isRequired,
     showAddPoll: PropTypes.bool.isRequired,
+    userAuthenticated: PropTypes.bool.isRequired,
+    user: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      username: PropTypes.string.isRequired,
+      displayName: PropTypes.string.isRequired,
+      publicRepos: PropTypes.number.isRequired,
+    }),
     dispatch: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
     this.props.dispatch(fetchPolls());
+    this.props.dispatch(fetchUser());
   }
 
   handleDeletePoll = poll => {
@@ -49,8 +59,8 @@ class PollListPage extends Component {
   render() {
     return (
       <div>
-        <PollCreateWidget addPoll={this.handleAddPoll} showAddPoll={this.props.showAddPoll} />
-        <PollList handleDeletePoll={this.handleDeletePoll} polls={this.props.polls} />
+        <PollCreateWidget addPoll={this.handleAddPoll} showAddPoll={this.props.showAddPoll} user={this.props.user} />
+        <PollList handleDeletePoll={this.handleDeletePoll} polls={this.props.polls} userAuthenticated={this.props.userAuthenticated} user={this.props.user} />
       </div>
     );
   }
@@ -64,6 +74,8 @@ function mapStateToProps(state) {
   return {
     showAddPoll: getShowAddPoll(state),
     polls: getPolls(state),
+    userAuthenticated: getUserAuthenticated(state),
+    user: getUser(state),
   };
 }
 
