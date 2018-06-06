@@ -32,10 +32,10 @@ class PollListPage extends Component {
     showAddPoll: PropTypes.bool.isRequired,
     userAuthenticated: PropTypes.bool.isRequired,
     user: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      username: PropTypes.string.isRequired,
-      displayName: PropTypes.string.isRequired,
-      publicRepos: PropTypes.number.isRequired,
+      id: PropTypes.string,
+      username: PropTypes.string,
+      displayName: PropTypes.string,
+      publicRepos: PropTypes.number,
     }),
     dispatch: PropTypes.func.isRequired,
   };

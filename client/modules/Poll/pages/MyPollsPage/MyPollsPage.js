@@ -30,7 +30,7 @@ class MyPollsPage extends Component {
       username: PropTypes.string.isRequired,
       displayName: PropTypes.string.isRequired,
       publicRepos: PropTypes.number.isRequired,
-    }),
+    }).isRequired,
   }
 
   componentDidMount() {

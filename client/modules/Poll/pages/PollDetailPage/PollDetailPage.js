@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { Button } from 'react-bootstrap';
 
+import PollChart from '../../components/PollChart';
+
 // Import Style
 import styles from '../../components/PollListItem/PollListItem.css';
 
@@ -36,7 +38,7 @@ class PollDetailPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className={styles['poll-and-chart']}>
         <Helmet title={this.props.poll.title} />
         <div className={`${styles['single-poll']} ${styles['poll-detail']}`}>
           <h3 className={styles['poll-title']}>{this.props.poll.title}</h3>
@@ -44,6 +46,9 @@ class PollDetailPage extends Component {
           {this.props.poll.choices.map((choice, index) =>
             <p className={styles['poll-option']} key={index}><Button onClick={() => this.handleVote(this.props.poll.cuid, index)}>{choice.name}: {choice.votes}</Button></p>
           )}
+        </div>
+        <div className={styles['poll-chart']}>
+          <PollChart choices={this.props.poll.choices} />
         </div>
       </div>
     );

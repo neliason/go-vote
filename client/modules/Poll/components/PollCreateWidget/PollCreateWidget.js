@@ -38,18 +38,20 @@ export class PollCreateWidget extends Component {
   }
 
   addOption = () => {
-    const newOptions = [
-      ...this.state.options,
-      {
-        text: '',
-        placeholder: `choice ${this.state.options.length + 1}`,
-        id: this.state.nextId,
-      },
-    ];
-    this.setState({
-      options: newOptions,
-      nextId: ++this.state.nextId,
-    });
+    if (this.state.options.length < 4) {
+      const newOptions = [
+        ...this.state.options,
+        {
+          text: '',
+          placeholder: `choice ${this.state.options.length + 1}`,
+          id: this.state.nextId,
+        },
+      ];
+      this.setState({
+        options: newOptions,
+        nextId: ++this.state.nextId,
+      });
+    }
   }
 
   deleteChoice = (indexToDelete) => {
@@ -139,10 +141,10 @@ PollCreateWidget.propTypes = {
   addPoll: PropTypes.func.isRequired,
   showAddPoll: PropTypes.bool.isRequired,
   user: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired,
-    displayName: PropTypes.string.isRequired,
-    publicRepos: PropTypes.number.isRequired,
+    id: PropTypes.string,
+    username: PropTypes.string,
+    displayName: PropTypes.string,
+    publicRepos: PropTypes.number,
   }),
 };
 

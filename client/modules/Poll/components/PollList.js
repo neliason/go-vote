@@ -34,10 +34,10 @@ PollList.propTypes = {
   handleDeletePoll: PropTypes.func.isRequired,
   userAuthenticated: PropTypes.bool.isRequired,
   user: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired,
-    displayName: PropTypes.string.isRequired,
-    publicRepos: PropTypes.number.isRequired,
+    id: PropTypes.string,
+    username: PropTypes.string,
+    displayName: PropTypes.string,
+    publicRepos: PropTypes.number,
   }),
 };
 

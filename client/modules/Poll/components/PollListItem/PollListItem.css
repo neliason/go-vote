@@ -56,3 +56,20 @@
   font-size: 16px;
   color: #555;
 }
+
+.poll-and-chart {
+  display: flex
+}
+
+.poll-detail {
+  flex: 1;
+}
+
+.poll-chart {
+  max-width: 550px;
+  min-width: 350px;
+  flex: 2;
+  margin-top: 50px;
+  padding-bottom: 25px;
+  float: left;
+}
