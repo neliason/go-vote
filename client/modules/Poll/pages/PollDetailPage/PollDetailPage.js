@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { Button } from 'react-bootstrap';
+import Cookies from 'js-cookie';
 
 import PollChart from '../../components/PollChart';
 
@@ -11,9 +12,11 @@ import styles from '../../components/PollListItem/PollListItem.css';
 
 // Import Actions
 import { fetchPoll, voteOnPollRequest } from '../../PollActions';
+import { fetchUser } from '../../../User/UserActions';
 
 // Import Selectors
 import { getPoll } from '../../PollReducer';
+import { getUserAuthenticated } from '../../../App/AppReducer';
 
 // TODO: display graph and allow voting
 class PollDetailPage extends Component {
@@ -29,10 +32,28 @@ class PollDetailPage extends Component {
       slug: PropTypes.string.isRequired,
       cuid: PropTypes.string.isRequired,
     }).isRequired,
+    userAuthenticated: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired,
   }
 
+  componentDidMount() {
+    this.props.dispatch(fetchUser());
+  }
+
   handleVote = (cuid, indexOfChoice) => {
+    if (!this.props.userAuthenticated) {
+      const pollsVotedOnCookie = Cookies.get('pollsVotedOn');
+      let pollsVotedOn = [];
+      if (pollsVotedOnCookie) {
+        pollsVotedOn = JSON.parse(pollsVotedOnCookie);
+      }
+      if (pollsVotedOn.includes(cuid)) {
+        alert('User already voted');
+        return;
+      }
+      pollsVotedOn.push(cuid);
+      Cookies.set('pollsVotedOn', pollsVotedOn);
+    }
     this.props.dispatch(voteOnPollRequest(cuid, indexOfChoice));
   }
 
@@ -64,6 +85,7 @@ PollDetailPage.need = [params => {
 function mapStateToProps(state, props) {
   return {
     poll: getPoll(state, props.params.cuid),
+    userAuthenticated: getUserAuthenticated(state),
   };
 }
 

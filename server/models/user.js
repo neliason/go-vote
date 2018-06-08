@@ -8,6 +8,7 @@ const userSchema = new Schema({
     username: String,
     publicRepos: Number,
   },
+  pollsVotedOn: [String],
 });
 
 export default mongoose.model('User', userSchema);

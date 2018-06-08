@@ -1,4 +1,5 @@
 import Poll from '../models/poll';
+import User from '../models/user';
 import cuid from 'cuid';
 import slug from 'limax';
 import sanitizeHtml from 'sanitize-html';
@@ -87,6 +88,26 @@ export function deletePoll(req, res) {
 }
 
 export function voteOnPoll(req, res) {
+  if (req.user) {
+    if (req.user.pollsVotedOn.includes(req.params.cuid)) {
+      res.send({ message: 'User already voted' });
+      return;
+    }
+    const newPollsVotedOn = [
+      ...req.user.pollsVotedOn,
+      req.params.cuid,
+    ];
+    User.findOneAndUpdate(
+      { _id: req.user.id },
+      { $set: { pollsVotedOn: newPollsVotedOn } },
+      (userUpdateError) => {
+        if (userUpdateError) {
+          res.status(500).send(userUpdateError);
+        }
+      }
+    );
+  }
+
   Poll.findOne({ cuid: req.params.cuid }).exec((findErr, poll) => {
     if (findErr) {
       res.status(500).send(findErr);

@@ -74,10 +74,16 @@ export function voteOnPoll(cuid, indexOfChoice) {
   };
 }
 
-export function voteOnPollRequest(cuid, indexOfChoice) {
+export function voteOnPollRequest(cuid, indexOfChoice, userAuthenticated) {
   return (dispatch) => {
     return callApi(`polls/${cuid}/vote`, 'post', {
       indexOfChoice,
-    }).then(() => dispatch(voteOnPoll(cuid, indexOfChoice)));
+    }).then((res) => {
+      if (res.message) {
+        alert(res.message);
+        return;
+      }
+      dispatch(voteOnPoll(cuid, indexOfChoice));
+    });
   };
 }
