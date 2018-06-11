@@ -78,3 +78,7 @@
   display: inline-block;
   padding: 2px;
 }
+
+.share-button:focus {
+  outline: none;
+}

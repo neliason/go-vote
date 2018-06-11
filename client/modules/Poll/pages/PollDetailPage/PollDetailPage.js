@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { Button } from 'react-bootstrap';
-import { FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon, EmailShareButton, EmailIcon } from 'react-share';
 import Cookies from 'js-cookie';
-
 import PollChart from '../../components/PollChart';
+import ShareButtons from '../../components/ShareButtons';
 
 // Import Style
 import styles from '../../components/PollListItem/PollListItem.css';
@@ -66,39 +65,16 @@ class PollDetailPage extends Component {
           <p className={styles['author-name']}>by {this.props.poll.name}</p>
           {this.props.poll.choices.map((choice, index) =>
             <p className={styles['poll-option']} key={index}>
-              <Button onClick={() => this.handleVote(this.props.poll.cuid, index)}>{choice.name}: {choice.votes}</Button>
+              <Button onClick={() => this.handleVote(this.props.poll.cuid, index)}>
+                {choice.name}: {choice.votes}
+              </Button>
             </p>
           )}
-          <FacebookShareButton
-            url={window.location.href}
-            quote={`${this.props.poll.title} | go-vote`}
-            className={styles['share-button']}
-          >
-            <FacebookIcon
-              size={26}
-              round
-            />
-          </FacebookShareButton>
-          <TwitterShareButton
-            url={window.location.href}
-            title={`${this.props.poll.title} | go-vote`}
-            className={styles['share-button']}
-          >
-            <TwitterIcon
-              size={26}
-              round
-            />
-          </TwitterShareButton>
-          <EmailShareButton
-            url={window.location.href}
-            subject={`${this.props.poll.title} | go-vote`}
-            className={styles['share-button']}
-          >
-            <EmailIcon
-              size={26}
-              round
-            />
-          </EmailShareButton>
+          <ShareButtons
+            size={26}
+            url={`${process.env.BASE_URL}/polls/${this.props.poll.slug}-${this.props.poll.cuid}`}
+            message={`${this.props.poll.title} | go-vote`}
+          />
         </div>
         <div className={styles['poll-chart']}>
           <PollChart choices={this.props.poll.choices} />

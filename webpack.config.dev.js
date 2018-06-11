@@ -69,6 +69,7 @@ module.exports = {
       'process.env': {
         CLIENT: JSON.stringify(true),
         'NODE_ENV': JSON.stringify('development'),
+        BASE_URL: JSON.stringify('http://localhost:8000'),
       }
     }),
   ],
