@@ -35,11 +35,19 @@ class PollDetailPage extends Component {
     dispatch: PropTypes.func.isRequired,
   }
 
+  state = {
+    selectedIndex: null,
+  };
+
   componentDidMount() {
     this.props.dispatch(fetchUser());
   }
 
   handleVote = (cuid, indexOfChoice) => {
+    if (this.state.selectedIndex === null) {
+      alert('Please select an option');
+      return;
+    }
     if (!this.props.userAuthenticated) {
       const pollsVotedOnCookie = Cookies.get('pollsVotedOn');
       let pollsVotedOn = [];
@@ -56,6 +64,12 @@ class PollDetailPage extends Component {
     this.props.dispatch(voteOnPollRequest(cuid, indexOfChoice));
   }
 
+  handleSelected = (index) => {
+    this.setState({
+      selectedIndex: index,
+    });
+  }
+
   render() {
     return (
       <div className={styles['poll-detail-page']}>
@@ -65,17 +79,26 @@ class PollDetailPage extends Component {
         <div className={styles['poll-and-chart']}>
           <div className={`${styles['single-poll']} ${styles['poll-detail']}`}>
             {this.props.poll.choices.map((choice, index) =>
-              <p className={styles['poll-option']} key={index}>
-                <Button onClick={() => this.handleVote(this.props.poll.cuid, index)}>
-                  {choice.name}: {choice.votes}
-                </Button>
-              </p>
+              <div className={styles['input-group']}>
+                <input
+                  id={`radio${index}`}
+                  name="radio"
+                  type="radio"
+                  checked={index === this.state.selectedIndex}
+                  onClick={() => this.handleSelected(index)}
+                />
+                <label htmlFor={`radio${index}`}>{choice.name}: {choice.votes}</label>
+              </div>
             )}
-            <ShareButtons
-              size={26}
-              url={`${process.env.BASE_URL}/polls/${this.props.poll.slug}-${this.props.poll.cuid}`}
-              message={`${this.props.poll.title} | go-vote`}
-            />
+            <div className={styles['detail-submit-and-share-btns']}>
+              <Button className={`btn ${styles['submit-btn']}`} onClick={() => this.handleVote(this.props.poll.cuid, this.state.selectedIndex)}>Submit</Button>
+              <ShareButtons
+                className={styles['share-btns']}
+                size={30}
+                url={`${process.env.BASE_URL}/polls/${this.props.poll.slug}-${this.props.poll.cuid}`}
+                message={`${this.props.poll.title} | go-vote`}
+              />
+            </div>
           </div>
           <div className={styles['poll-chart']}>
             <PollChart choices={this.props.poll.choices} />
