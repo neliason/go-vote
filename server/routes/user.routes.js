@@ -1,6 +1,3 @@
-const path = process.cwd();
-import { isLoggedIn } from '../util/common';
-
 module.exports = function (app, passport) {
   app.route('/logout')
     .get((req, res) => {

@@ -117,14 +117,10 @@ export class PollCreateWidget extends Component {
                 onChange={(event) => this.onOptionChange(event, index)}
                 value={this.state.options[index].text}
               />
-              <Button
-                className={styles['delete-button']}
-                bsStyle="danger"
-                href="#"
+              <i
+                className={`fas fa-trash fa-lg ${styles['delete-button']}`}
                 onClick={() => this.deleteChoice(index)}
-              >
-                Delete
-              </Button>
+              ></i>
             </div>
           )}
           <ButtonToolbar>

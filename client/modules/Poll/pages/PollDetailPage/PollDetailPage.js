@@ -58,26 +58,28 @@ class PollDetailPage extends Component {
 
   render() {
     return (
-      <div className={styles['poll-and-chart']}>
+      <div className={styles['poll-detail-page']}>
         <Helmet title={this.props.poll.title} />
-        <div className={`${styles['single-poll']} ${styles['poll-detail']}`}>
-          <h3 className={styles['poll-title']}>{this.props.poll.title}</h3>
-          <p className={styles['author-name']}>by {this.props.poll.name}</p>
-          {this.props.poll.choices.map((choice, index) =>
-            <p className={styles['poll-option']} key={index}>
-              <Button onClick={() => this.handleVote(this.props.poll.cuid, index)}>
-                {choice.name}: {choice.votes}
-              </Button>
-            </p>
-          )}
-          <ShareButtons
-            size={26}
-            url={`${process.env.BASE_URL}/polls/${this.props.poll.slug}-${this.props.poll.cuid}`}
-            message={`${this.props.poll.title} | go-vote`}
-          />
-        </div>
-        <div className={styles['poll-chart']}>
-          <PollChart choices={this.props.poll.choices} />
+        <h3 className={styles['poll-title']}>{this.props.poll.title}</h3>
+        <p className={styles['author-name']}>by {this.props.poll.name}</p>
+        <div className={styles['poll-and-chart']}>
+          <div className={`${styles['single-poll']} ${styles['poll-detail']}`}>
+            {this.props.poll.choices.map((choice, index) =>
+              <p className={styles['poll-option']} key={index}>
+                <Button onClick={() => this.handleVote(this.props.poll.cuid, index)}>
+                  {choice.name}: {choice.votes}
+                </Button>
+              </p>
+            )}
+            <ShareButtons
+              size={26}
+              url={`${process.env.BASE_URL}/polls/${this.props.poll.slug}-${this.props.poll.cuid}`}
+              message={`${this.props.poll.title} | go-vote`}
+            />
+          </div>
+          <div className={styles['poll-chart']}>
+            <PollChart choices={this.props.poll.choices} />
+          </div>
         </div>
       </div>
     );

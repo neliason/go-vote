@@ -1,14 +1,12 @@
 .header {
-  background: #eee url('../../header-bk.png') center;
-  background-size: cover;
-  border-bottom: 1px solid #ccc;
+  background-color: rgb(0, 146, 228);
 }
 
 .content {
   width: 100%;
   max-width: 980px;
   margin: auto;
-  padding: 64px 16px;
+  padding: 16px 16px;
   overflow: auto;
 }
 
@@ -24,13 +22,19 @@
 }
 
 .add-poll-button {
-  display: inline-block;
   color: #FFF;
   background: #03A9F4;
   padding: 8px 16px;
   text-decoration: none;
   border-radius: 1000px;
   float: right;
+  margin-top: 24px;
+}
+
+.add-poll-button:focus,
+.add-poll-button:hover {
+  color: #FFF;
+  text-decoration: none;
 }
 
 .navbar {
@@ -66,6 +70,7 @@
 @media (max-width: 767px){
   .add-poll-button{
     float: left;
-    margin-top: 16px;
+    margin-top: 24px;
+    margin-left: 5px;
   }
 }

@@ -76,9 +76,9 @@ header a ~ p {
 	padding: 0;
 }
 
-.btn > img {
+.github-icon {
 	float: left;
-	margin-left: 10px
+	margin-left: 10px;
 }
 
 /****** Logo Div Styling ******/

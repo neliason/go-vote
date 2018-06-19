@@ -96,6 +96,9 @@ const renderFullPage = (html, initialState) => {
         <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'/>
         <link rel="shortcut icon" href="http://res.cloudinary.com/hashnode/image/upload/v1455629445/static_imgs/mern/mern-favicon-circle-fill.png" type="image/png" />
         <link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/solid.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/brands.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/fontawesome.css">
       </head>
       <body>
         <div id="root">${process.env.NODE_ENV === 'production' ? html : `<div>${html}</div>`}</div>

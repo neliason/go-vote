@@ -47,14 +47,13 @@
   margin: 32px auto 0;
 }
 
-.poll-detail .poll-title{
+.poll-detail-page .poll-title{
   font-size: 42px;
   color: #454545;
 }
 
-.poll-detail .poll-desc{
-  font-size: 16px;
-  color: #555;
+.poll-detail-page > p {
+  margin-top: -10px;
 }
 
 .poll-and-chart {
@@ -69,7 +68,7 @@
   max-width: 550px;
   min-width: 350px;
   flex: 2;
-  margin-top: 50px;
+  margin-top: -10px;
   padding-bottom: 25px;
   float: left;
 }

@@ -1,7 +1,7 @@
 .footer{
+  background-color: rgb(0, 146, 228);
   text-align: center;
-  padding: 56px 0;
-  background-size: cover;
+  padding: 16px 0;
 }
 
 .footer p{

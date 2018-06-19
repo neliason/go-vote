@@ -11,6 +11,7 @@ class PollChart extends Component {
     })).isRequired,
   }
 
+  // TODO: random color generation to support unlimited poll choices
   state = {
     chartData: {
       labels: this.props.choices.map(choice => choice.name),
