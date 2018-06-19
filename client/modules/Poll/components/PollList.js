@@ -14,6 +14,7 @@ const PollList = props =>
           onDelete={() => props.handleDeletePoll(poll.cuid)}
           userAuthenticated={props.userAuthenticated}
           user={props.user}
+          isMyPolls={props.isMyPolls}
         />
       ))
     }
@@ -39,6 +40,7 @@ PollList.propTypes = {
     displayName: PropTypes.string,
     publicRepos: PropTypes.number,
   }),
+  isMyPolls: PropTypes.bool,
 };
 
 export default PollList;

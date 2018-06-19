@@ -52,6 +52,7 @@ class MyPollsPage extends Component {
           handleDeletePoll={this.handleDeletePoll}
           userAuthenticated={this.props.userAuthenticated}
           user={this.props.user}
+          isMyPolls={true}
         />
       </div>
     );

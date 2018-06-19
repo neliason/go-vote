@@ -60,7 +60,7 @@ class PollListPage extends Component {
     return (
       <div>
         <PollCreateWidget addPoll={this.handleAddPoll} showAddPoll={this.props.showAddPoll} user={this.props.user} />
-        <PollList handleDeletePoll={this.handleDeletePoll} polls={this.props.polls} userAuthenticated={this.props.userAuthenticated} user={this.props.user} />
+        <PollList handleDeletePoll={this.handleDeletePoll} polls={this.props.polls} userAuthenticated={this.props.userAuthenticated} user={this.props.user} isMyPolls={false} />
       </div>
     );
   }

@@ -12,15 +12,11 @@ const PollListItem = props =>
         {props.poll.title}
       </Link>
     </h3>
-    <p className={styles['author-name']}>by {props.poll.name}</p>
-    {props.poll.choices.map((choice, index) =>
-      <p className={styles['poll-option']} key={index}>{choice.name}: {choice.votes}</p>
-    )}
     {
-      props.userAuthenticated && props.poll.name === props.user.username ?
+      props.userAuthenticated && props.poll.name === props.user.username && props.isMyPolls ?
         <p className={styles['poll-action']}><a href="#" onClick={props.onDelete}>Delete Poll</a></p>
       :
-        null
+        <p className={styles['author-name']}>by {props.poll.name}</p>
     }
     <hr className={styles.divider} />
   </div>;
@@ -45,6 +41,7 @@ PollListItem.propTypes = {
     displayName: PropTypes.string,
     publicRepos: PropTypes.number,
   }),
+  isMyPolls: PropTypes.bool,
 };
 
 export default PollListItem;
