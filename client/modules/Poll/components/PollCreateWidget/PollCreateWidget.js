@@ -108,7 +108,7 @@ export class PollCreateWidget extends Component {
         <div className={styles['form-content']}>
           <h2 className={styles['form-title']}>Create Poll</h2>
           <input placeholder="What is your favorite color?" className={styles['form-field']} ref="title" />
-          Choices
+          <div className={styles['choices-title-text']}>Choices</div>
           {this.state.options.map((option, index) =>
             <div className={styles['choice-flexbox']} key={option.id}>
               <input
@@ -126,6 +126,7 @@ export class PollCreateWidget extends Component {
           <ButtonToolbar>
             <Button bsStyle="primary" href="#" onClick={this.addPoll}>Submit</Button>
             <Button onClick={this.addOption}>Add Choice</Button>
+            <Button onClick={this.props.toggleAddPoll}>Close</Button>
           </ButtonToolbar>
         </div>
       </div>
@@ -136,12 +137,14 @@ export class PollCreateWidget extends Component {
 PollCreateWidget.propTypes = {
   addPoll: PropTypes.func.isRequired,
   showAddPoll: PropTypes.bool.isRequired,
+  toggleAddPoll: PropTypes.func.isRequired,
   user: PropTypes.shape({
     id: PropTypes.string,
     username: PropTypes.string,
     displayName: PropTypes.string,
     publicRepos: PropTypes.number,
   }),
+
 };
 
 export default PollCreateWidget;

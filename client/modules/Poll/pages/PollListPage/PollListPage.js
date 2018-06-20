@@ -30,6 +30,7 @@ class PollListPage extends Component {
       dateAdded: PropTypes.string.isRequired,
     })).isRequired,
     showAddPoll: PropTypes.bool.isRequired,
+    toggleAddPoll: PropTypes.func.isRequired,
     userAuthenticated: PropTypes.bool.isRequired,
     user: PropTypes.shape({
       id: PropTypes.string,
@@ -56,10 +57,14 @@ class PollListPage extends Component {
     this.props.dispatch(addPollRequest({ name, title, choices }));
   };
 
+  toggleAddPollSection = () => {
+    this.props.dispatch(toggleAddPoll());
+  }
+
   render() {
     return (
       <div>
-        <PollCreateWidget addPoll={this.handleAddPoll} showAddPoll={this.props.showAddPoll} user={this.props.user} />
+        <PollCreateWidget addPoll={this.handleAddPoll} showAddPoll={this.props.showAddPoll} user={this.props.user} toggleAddPoll={this.toggleAddPollSection} />
         <PollList handleDeletePoll={this.handleDeletePoll} polls={this.props.polls} userAuthenticated={this.props.userAuthenticated} user={this.props.user} isMyPolls={false} />
       </div>
     );

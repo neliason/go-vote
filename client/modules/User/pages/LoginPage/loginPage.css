@@ -1,0 +1,35 @@
+.login {
+	/* margin: 86px auto 0 auto; */
+  text-align: center;
+  display: block;
+}
+
+.login-text {
+  font-size: 26px;
+  padding-bottom: 10px;
+}
+
+.login-btn {
+  width: 200px;
+  height: 40px;
+  font-size: 17px;
+  background-color: black;
+  color: white;
+  margin: 20px;
+}
+
+.login-btn:hover {
+  color: white;
+}
+
+.login-btn:active {
+  background-color: rgb(66, 65, 65);
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.github-icon {
+  padding-right: 7px;
+}

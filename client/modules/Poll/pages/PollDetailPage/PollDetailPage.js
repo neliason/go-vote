@@ -87,7 +87,12 @@ class PollDetailPage extends Component {
                   checked={index === this.state.selectedIndex}
                   onClick={() => this.handleSelected(index)}
                 />
-                <label htmlFor={`radio${index}`}>{choice.name}: {choice.votes}</label>
+                <label htmlFor={`radio${index}`}>
+                  {choice.name}
+                  <span className={styles['num-votes-text']}>
+                    <i> {choice.votes} {choice.votes === 1 ? 'vote' : 'votes'}</i>
+                  </span>
+                </label>
               </div>
             )}
             <div className={styles['detail-submit-and-share-btns']}>

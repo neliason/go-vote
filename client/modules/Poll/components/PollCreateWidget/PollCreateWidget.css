@@ -14,10 +14,10 @@
 }
 
 .form-title{
-  font-size: 16px;
+  font-size: 23px;
   font-weight: 700;
   margin-bottom: 16px;
-  color: #757575;
+  color: #505050;
 }
 
 .form-field{
@@ -31,6 +31,11 @@
   border: 1px solid #ddd;
   outline: none;
   color: #212121;
+}
+
+.choices-title-text {
+  font-size: 17px;
+  margin-bottom: 10px;
 }
 
 .choice-flexbox {

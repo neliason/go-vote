@@ -66,6 +66,11 @@
   margin-top: -20px;
 }
 
+.num-votes-text {
+  color: gray;
+  opacity: 0.5;
+}
+
 .poll-chart {
   max-width: 550px;
   min-width: 350px;
@@ -155,6 +160,10 @@
 }
 
 .input-group input:checked ~ label {
+  color: #fff;
+}
+
+.input-group input:checked ~ label .num-votes-text {
   color: #fff;
 }
 
