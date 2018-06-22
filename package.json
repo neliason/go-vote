@@ -117,9 +117,6 @@
     "webpack-hot-middleware": "^2.10.0",
     "webpack-manifest-plugin": "^1.0.1"
   },
-  "engines": {
-    "node": "8.9.4"
-  },
   "ava": {
     "files": [
       "client/**/*.spec.js",
