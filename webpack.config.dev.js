@@ -68,8 +68,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         CLIENT: JSON.stringify(true),
-        'NODE_ENV': JSON.stringify('development'),
-        BASE_URL: JSON.stringify('http://localhost:8000'),
+        'NODE_ENV': JSON.stringify('development')
       }
     }),
   ],

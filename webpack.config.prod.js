@@ -62,7 +62,6 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production'),
-        BASE_URL: JSON.stringify('https://go-vote.herokuapp.com/'),
         APP_URL: JSON.stringify('https://go-vote.herokuapp.com/'),
       }
     }),
