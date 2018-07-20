@@ -5,7 +5,9 @@ import Config from '../../server/config';
 //   process.env.BASE_URL || (`http://localhost:${process.env.PORT || Config.port}/api`) :
 //   '/api';
 
-export const API_URL = 'https://go-vote.herokuapp.com/api';
+export const API_URL = (typeof window === 'undefined' || process.env.NODE_ENV === 'test') ?
+  process.env.BASE_URL || ('http://localhost:8000/api') :
+  '/api';
 
 export default function callApi(endpoint, method = 'get', body) {
   return fetch(`${API_URL}/${endpoint}`, {
