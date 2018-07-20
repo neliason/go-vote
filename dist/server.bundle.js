@@ -513,7 +513,7 @@
 	//   process.env.BASE_URL || (`http://localhost:${process.env.PORT || Config.port}/api`) :
 	//   '/api';
 	
-	var API_URL = exports.API_URL = typeof window === 'undefined' || process.env.NODE_ENV === 'test' ? process.env.BASE_URL || 'http://localhost:8000/api' : '/api';
+	var API_URL = exports.API_URL = 'https://go-vote.herokuapp.com/api';
 	
 	function callApi(endpoint) {
 	  var method = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'get';
