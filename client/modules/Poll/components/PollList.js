@@ -7,7 +7,7 @@ import PollListItem from './PollListItem/PollListItem';
 const PollList = props =>
   <div className="listView">
     {
-      props.polls.map(poll => (
+      props.polls.map((poll, index, arr) => (
         <PollListItem
           poll={poll}
           key={poll.cuid}
@@ -15,6 +15,7 @@ const PollList = props =>
           userAuthenticated={props.userAuthenticated}
           user={props.user}
           isMyPolls={props.isMyPolls}
+          isLastPoll={index === arr.length - 1}
         />
       ))
     }

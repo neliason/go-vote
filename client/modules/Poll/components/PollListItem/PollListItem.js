@@ -18,7 +18,12 @@ const PollListItem = props =>
       :
         <p className={styles['author-name']}>by {props.poll.name}</p>
     }
-    <hr className={styles.divider} />
+    {
+      !props.isLastPoll ?
+        <hr className={styles.divider} />
+      :
+        null
+    }
   </div>;
 
 
@@ -42,6 +47,7 @@ PollListItem.propTypes = {
     publicRepos: PropTypes.number,
   }),
   isMyPolls: PropTypes.bool,
+  isLastPoll: PropTypes.bool.isRequired,
 };
 
 export default PollListItem;
