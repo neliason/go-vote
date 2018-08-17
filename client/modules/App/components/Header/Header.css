@@ -16,8 +16,8 @@
   float: left;
 }
 
-.site-title > a {
-  text-decoration: none;
+.site-title a {
+  text-decoration: none !important;
   color: #FFF;
 }
 
@@ -43,7 +43,7 @@
 
 .navbar ul {
   list-style: none;
-  width: 980px;
+  width: 100%;
   margin: auto;
   text-align: right;
 }
