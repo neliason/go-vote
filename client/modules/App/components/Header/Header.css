@@ -21,6 +21,10 @@
   color: #FFF;
 }
 
+.site-title a:hover {
+  text-decoration: none;
+}
+
 .add-poll-button {
   color: #FFF;
   background: #03A9F4;

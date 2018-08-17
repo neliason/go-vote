@@ -21,6 +21,10 @@
   color: #616161;
 }
 
+.poll-title a:hover {
+  text-decoration: none;
+}
+
 .author-name{
   font-size: 16px;
   margin-bottom: 16px;
