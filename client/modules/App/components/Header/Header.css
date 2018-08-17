@@ -16,13 +16,9 @@
   float: left;
 }
 
-.site-title a {
+.site-title a, .site-title a:hover {
   text-decoration: none !important;
   color: #FFF;
-}
-
-.site-title a:hover {
-  text-decoration: none;
 }
 
 .add-poll-button {
@@ -60,6 +56,11 @@
 }
 
 .navbar a {
+  color: #FFF;
+}
+
+.navbar a:hover {
+  text-decoration: none !important;
   color: #FFF;
 }
 
