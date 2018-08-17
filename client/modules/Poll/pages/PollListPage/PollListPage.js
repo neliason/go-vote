@@ -30,7 +30,6 @@ class PollListPage extends Component {
       dateAdded: PropTypes.string.isRequired,
     })).isRequired,
     showAddPoll: PropTypes.bool.isRequired,
-    toggleAddPoll: PropTypes.func.isRequired,
     userAuthenticated: PropTypes.bool.isRequired,
     user: PropTypes.shape({
       id: PropTypes.string,

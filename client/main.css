@@ -1,6 +1,9 @@
 /*
   Global CSS file
 */
+
+@import url(//fonts.googleapis.com/css?family=Lato:300,400,700);
+
 *{
 	margin: 0;
 	padding: 0;
