@@ -16,13 +16,9 @@
   color: #616161;
 }
 
-.poll-title a{
+.poll-title a, .poll-title a:hover {
   text-decoration: none;
   color: #616161;
-}
-
-.poll-title a:hover {
-  text-decoration: none;
 }
 
 .author-name{
