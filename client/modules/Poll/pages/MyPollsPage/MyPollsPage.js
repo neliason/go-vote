@@ -48,7 +48,7 @@ class MyPollsPage extends Component {
     return (
       <div>
         <PollList
-          polls={this.props.polls}
+          polls={this.props.polls.reverse()}
           handleDeletePoll={this.handleDeletePoll}
           userAuthenticated={this.props.userAuthenticated}
           user={this.props.user}

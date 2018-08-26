@@ -5,6 +5,8 @@ import { Button, ButtonToolbar } from 'react-bootstrap';
 // Import Style
 import styles from './PollCreateWidget.css';
 
+const MAX_POLL_CHOICE_LENGTH = 80;
+
 export class PollCreateWidget extends Component {
 
   state = {
@@ -25,16 +27,18 @@ export class PollCreateWidget extends Component {
 
   onOptionChange = (event, index) => {
     const optionText = event.target.value;
-    const newOptions = this.state.options.map((option, mapIndex) => {
-      if (mapIndex === index) {
-        return {
-          ...option,
-          text: optionText,
-        };
-      }
-      return option;
-    });
-    this.setState({ options: newOptions });
+    if (optionText.length <= MAX_POLL_CHOICE_LENGTH) {
+      const newOptions = this.state.options.map((option, mapIndex) => {
+        if (mapIndex === index) {
+          return {
+            ...option,
+            text: optionText,
+          };
+        }
+        return option;
+      });
+      this.setState({ options: newOptions });
+    }
   }
 
   addOption = () => {

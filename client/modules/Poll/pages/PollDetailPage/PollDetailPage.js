@@ -79,7 +79,7 @@ class PollDetailPage extends Component {
         <div className={styles['poll-and-chart']}>
           <div className={`${styles['single-poll']} ${styles['poll-detail']}`}>
             {this.props.poll.choices.map((choice, index) =>
-              <div className={styles['input-group']}>
+              <div className={styles['input-group']} key={choice._id}>
                 <input
                   id={`radio${index}`}
                   name="radio"
