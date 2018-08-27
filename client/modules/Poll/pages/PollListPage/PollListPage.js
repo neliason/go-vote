@@ -45,12 +45,6 @@ class PollListPage extends Component {
     this.props.dispatch(fetchUser());
   }
 
-  handleDeletePoll = poll => {
-    if (confirm('Do you want to delete this poll')) { // eslint-disable-line
-      this.props.dispatch(deletePollRequest(poll));
-    }
-  };
-
   handleAddPoll = (name, title, choices) => {
     this.props.dispatch(toggleAddPoll());
     this.props.dispatch(addPollRequest({ name, title, choices }));
@@ -64,7 +58,7 @@ class PollListPage extends Component {
     return (
       <div>
         <PollCreateWidget addPoll={this.handleAddPoll} showAddPoll={this.props.showAddPoll} user={this.props.user} toggleAddPoll={this.toggleAddPollSection} />
-        <PollList handleDeletePoll={this.handleDeletePoll} polls={this.props.polls} userAuthenticated={this.props.userAuthenticated} user={this.props.user} isMyPolls={false} />
+        <PollList polls={this.props.polls} userAuthenticated={this.props.userAuthenticated} user={this.props.user} isMyPolls={false} />
       </div>
     );
   }

@@ -33,7 +33,7 @@ PollList.propTypes = {
     cuid: PropTypes.string.isRequired,
     dateAdded: PropTypes.string.isRequired,
   })).isRequired,
-  handleDeletePoll: PropTypes.func.isRequired,
+  handleDeletePoll: PropTypes.func,
   userAuthenticated: PropTypes.bool.isRequired,
   user: PropTypes.shape({
     id: PropTypes.string,

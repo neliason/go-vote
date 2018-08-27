@@ -129,7 +129,13 @@ export class PollCreateWidget extends Component {
           )}
           <ButtonToolbar>
             <Button bsStyle="primary" href="#" onClick={this.addPoll}>Submit</Button>
-            <Button onClick={this.addOption}>Add Choice</Button>
+            {
+              this.state.options.length < 4
+                ?
+                <Button onClick={this.addOption}>Add Choice</Button>
+                :
+                null
+            }
             <Button onClick={this.props.toggleAddPoll}>Close</Button>
           </ButtonToolbar>
         </div>

@@ -10,15 +10,13 @@ export function Header(props, context) {
     <div className={styles.header}>
       <div className={styles.navbar}>
         <ul>
-          {props.userAuthenticated ?
-            <span>
+            {props.userAuthenticated ?
               <li>
                 <a href="/mypolls">My Polls</a>
               </li>
-            </span>
-          :
-            null
-          }
+            :
+              null
+            }
           <li>
             {props.userAuthenticated ?
               <a href="/logout">Logout</a>
