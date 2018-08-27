@@ -15,9 +15,6 @@ export function Header(props, context) {
               <li>
                 <a href="/mypolls">My Polls</a>
               </li>
-              <li>
-                <a href="/profile">Profile</a>
-              </li>
             </span>
           :
             null
