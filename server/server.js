@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import passport from 'passport';
 import session from 'express-session';
+const MongoStore = require('connect-mongo')(session);
 
 
 // Webpack Requirements
@@ -61,6 +62,7 @@ mongoose.connect(process.env.MONGO_URI, (error) => {
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
+  store: new MongoStore({ mongooseConnection: mongoose.connection }),
   resave: false,
   saveUninitialized: true,
 }));
@@ -94,6 +96,7 @@ const renderFullPage = (html, initialState) => {
 
        
         <link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/solid.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/brands.css">
