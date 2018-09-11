@@ -81,9 +81,22 @@ export function deletePoll(req, res) {
       res.status(500).send(err);
     }
 
-    poll.remove(() => {
-      res.status(200).end();
-    });
+    if (req.user) {
+      User.findById(req.user._id).exec((userFindErr, user) => {
+        if (err) {
+          res.status(500).send(userFindErr);
+        }
+        if (user.github.username === poll.name) {
+          poll.remove(() => {
+            res.status(200).end();
+          });
+        } else {
+          res.status(403).end();
+        }
+      });
+    } else {
+      res.status(401).end();
+    }
   });
 }
 
